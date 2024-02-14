@@ -1,74 +1,89 @@
+let piedra = "piedra";
+let papel = "papel";
+let tijeras = "tijeras";
 
-document.write(`<h1>Ejercicios Guiados JS</h1>`)
+let Empate = 0;
+let Gana = 1;
+let Pierde = 2;
 
-//EJERCICIO 1
+let juegosCant = (document.querySelector("#cantJuegos").value) * 1;
+let pendientes = document.querySelector("#pendientes");
+let piedraBtn = document.querySelector("#piedra");
+let papelBtn = document.querySelector("#papel");
+let tijerasBtn = document.querySelector("#tijeras");
+let resultado = document.querySelector("#resultado");
+let jugImg = document.querySelector("#jugador");
+let maqImg = document.querySelector("#maquina");
 
-document.write(`<h3> Realizar el diagrama de flujo para las siguientes operaciones matemáticas: Suma,
-Resta, División, Multiplicación y el módulo de un número, partiendo de dos números
-ingresados por el usuario.</h3>
-`)
-document.write(`<img src="./assets/img/Operaciones.drawio.png" alt="Op matematicas">`)
+if (juegosCant > 5) {
+    pendientes.innerHTML = "Solo Hasta 5 juegos"
+} else {
+         piedraBtn.addEventListener("click", () => {
+            juegosCant--;
+            imprimir();
+        })
+        papelBtn.addEventListener("click", () => {
+            jugar(papel);
+            juegosCant--;
+            imprimir();
+        })
+        tijerasBtn.addEventListener("click", () => {
+            jugar(tijeras);
+            juegosCant--;
+            imprimir();
+        })
+  
+}
 
-//EJERCICIO 2
-// Se solicitan los numeros para realizar los calculos 
-document.write(`<h3>Realizar operaciones con dos números. Pedir al usuario que ingrese dos números
-diferentes y mayores a cero. Para ambos números, calcular lo siguiente:
- Suma
- Resta
- División
- Multiplicación
- Módulo
-</h3>`)
+function imprimir() {
+    pendientes.innerHTML = `Quedan ${juegosCant} juegos pendientes`
+}
 
-let number1 = parseFloat(prompt('Ingrese el 1er Numero mayor a 0'));
-let number2 = parseFloat(prompt('Ingrese el 2do Numero mayor a 0'));
+function jugar(opcJugador) {
+    let resultadoJuego = juegoResultado(opcJugador, maquinaOp());
+    switch (resultadoJuego) {
+        case Empate:
+            resultado.innerHTML = "Empate! 🤜🤛";
+            break;
+        case Gana:
+            resultado.innerHTML = "Ganaste! 👍";
+            break;
+        case Pierde:
+            resultado.innerHTML = "Pierdes 🤬";
+            break;
+    }
+}
 
-//resultados
-let suma = (number1*1) + (number2*1);
-let resta = (number1*1) - (number2*1);
-let multiplicacion = (number1*1) * (number2*1);
-let division = (number1*1) / (number2*1);
-let resto = (number1*1) % (number2*1);
+function maquinaOp() {
+    let opcmaq = Math.floor(Math.random() * 3);
+    switch (opcmaq) {
+        case 0:
+            return piedra;
+        case 1:
+            return papel;
+        case 2:
+            return tijeras;
+    }
+}
 
+function juegoResultado(opcJugador, maquinaOp) {
+    if (opcJugador === maquinaOp) {
+        return Empate;
 
-document.write(`<p>El resultado es : suma ${suma}</p>`)
-document.write(`<p>El resultado es : resta ${resta}</p>`)
-document.write(`<p>El resultado es : multiplicacion ${multiplicacion}</p>`)
-document.write(`<p>El resultado es : division ${division}</p>`)
-document.write(`<p>El resultado es : resto ${resto}</p>`)
+    } else if (opcJugador === piedra) {
 
-//Ejercicio 3
+        if (maquinaOp === papel) return Pierde;
+        if (maquinaOp === tijeras) return Gana;
 
-document.write(`<h3>Crear un programa que pida al usuario ingresar la temperatura en grados Celsius y que
-la transforme a grados Kelvin y Fahrenheit.</h3>`)
+    } else if (opcJugador === papel) {
 
-let number3 = prompt('Ingrese temperatura Cº:');
+        if (maquinaOp === tijeras) return Pierde;
+        if (maquinaOp === piedra) return Gana;
 
-let kelvin = (number3*1) + 273.15;
-let fahrenheit =((number3*1)* 9/5) + 32;
-document.write(`<p>El resultado es : kelvin ${kelvin}</p>`)
-document.write(`<p>El resultado es : fahrenheit ${fahrenheit}</p>`)
+    } else if (opcJugador === tijeras) {
 
-//Ejercicio 4
+        if (maquinaOp === piedra) return Pierde;
+        if (maquinaOp === papel) return Gana;
 
-document.write(`<h3>Crear un programa que pida al usuario una cantidad de días y que muestre su equivalente en Años, Semanas y Días. Por ejemplo, si el usuario ingresa 373, el
-resultado debe ser 1 año, 1 semana y 1 día. (3 Puntos) </h3>`)
-
-let number4 = prompt('Ingrese cantidad de dias:');
-
-let anios = Math.floor((number4*1) / 365);
-let semanas =(Math.floor((number4*1) % 365))/7;
-let dias = semanas % 7;
-
-document.write(`<p>El resultado es : años ${anios}</p>`)
-document.write(`<p>El resultado es : semanas ${semanas}</p>`)
-document.write(`<p>El resultado es : dias ${dias}</p>`)
-
-//Ejercicio 5
-
-document.write(`<h3>Crear un programa que solicite al usuario 5 números y realice los cálculos que se piden a continuación
-● La suma de todos los números.
-● El promedio de los 5 números ingresados.
-</h3>
-<p> Ejercicio Largo y fome</p>
-`)
+    }
+}

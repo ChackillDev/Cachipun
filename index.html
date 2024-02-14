@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicios js</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+
+    <title>Cachipún</title>
 </head>
+
 <body>
+
+<div class="container">
     
-    <script src="./assets/js/script.js"></script>
+            <h1>Juego del Cachipún</h1>
+    
+            <div >
+                Elija juegos(1 a 5)
+                <input type="number" id="cantJuegos" placeholder="1-5">
+            </div>
+
+            <div id="pendientes">
+           </div>
+            
+            <div id="resultado">
+           </div>
+            
+            <div class="grupoResultado" >
+                <div>
+                    <label for="jugador">Jugador</label>
+                    <img name="jugador" id="jugador" src="./assets/img/hand-regular.svg">
+                </div>
+                <p>Versus </p>
+                <div>
+                    <label for="maquina">Maquina</label>
+                    <img name="maquina" id="maquina" src="./assets/img/hand-regular.svg ">
+                </div>
+            </div>
+            <div class="grupoBtnJuego">
+                <button id="piedra" type="button">
+                    Piedra
+                </button>
+                <button  id="papel" type="button">
+                   Papel
+                </button>
+                <button  id="tijeras" type="button">
+                    Tijera
+                </button>
+            </div>
+</div>
+        <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
